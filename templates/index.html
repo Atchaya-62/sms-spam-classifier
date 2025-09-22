@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spam SMS Classifier</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #c744e1;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-xl text-center">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Spam SMS Classifier</h1>
+        <p class="text-gray-600 mb-8">Enter a message below and I'll tell you if it's spam or not.</p>
+
+        <!-- Form to submit the text message to our Flask backend -->
+        <form method="POST" action="/predict">
+            <textarea name="message" rows="6" class="w-full p-4 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-6 resize-none" placeholder="Enter your message here..."></textarea>
+            <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105">
+                Predict
+            </button>
+        </form>
+
+        <!-- Display the prediction result here if available -->
+        {% if prediction %}
+        <div class="mt-8 p-4 rounded-lg 
+            {% if prediction == 'Spam' %} 
+                bg-red-100 text-red-700 font-bold border border-red-400
+            {% else %} 
+                bg-green-100 text-green-700 font-bold border border-green-400
+            {% endif %}">
+            <p>The message is: <span class="text-lg">{{ prediction }}</span></p>
+        </div>
+        {% endif %}
+
+    </div>
+</body>
+</html>
